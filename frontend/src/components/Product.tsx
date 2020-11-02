@@ -1,5 +1,4 @@
 import React from 'react'
-//@ts-ignore
 import { Link } from 'react-router-dom'
 import { Card } from 'react-bootstrap'
 import { Product } from '../interfaces'
