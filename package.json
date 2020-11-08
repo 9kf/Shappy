@@ -1,0 +1,14 @@
+{
+  "name": "shappy",
+  "version": "1.0.0",
+  "description": "MERN fullstack application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server"
+  },
+  "author": "Kristian Francisco",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
