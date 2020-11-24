@@ -1,33 +1,42 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import { Product } from '../interfaces'
+import React, { useEffect } from 'react'
+import { Product, IProductList } from '../interfaces/productInterfaces'
+import { TRootState } from '../store'
+import { useDispatch, useSelector } from 'react-redux'
+import { listProducts } from '../actions/productActions'
 
 import { Col, Row } from 'react-bootstrap'
 import ProductComponent from '../components/Product'
+import Message from '../components/Message'
+import Loader from '../components/Loader'
 
 const HomeScreen = () => {
-  const [products, setProducts] = useState<Product[]>([])
+  const dispatch = useDispatch()
+
+  const productList = useSelector<TRootState, IProductList>((state) => {
+    return state.productList
+  })
+  const { loading, error, products } = productList
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const { data } = await axios.get('api/products')
-
-      setProducts(data)
-    }
-
-    fetchProducts()
-  }, [])
+    dispatch(listProducts())
+  }, [dispatch])
 
   return (
     <>
       <h1>latest products</h1>
-      <Row>
-        {products.map((product) => (
-          <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-            <ProductComponent product={product} />
-          </Col>
-        ))}
-      </Row>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant='danger'>{error}</Message>
+      ) : (
+        <Row>
+          {products?.map((product: Product) => (
+            <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+              <ProductComponent product={product} />
+            </Col>
+          ))}
+        </Row>
+      )}
     </>
   )
 }

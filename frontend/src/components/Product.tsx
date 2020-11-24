@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Card } from 'react-bootstrap'
-import { Product } from '../interfaces'
+import { Product } from '../interfaces/productInterfaces'
 import Rating from './Rating'
 
 interface ProductProps {
@@ -27,7 +27,7 @@ const ProductComponent: React.FC<ProductProps> = ({
         <Card.Text as='div'>
           <Rating
             value={product.rating}
-            text={`${product.numReviews} reviews`}
+            text={`${product.numOfReviews} reviews`}
           />
         </Card.Text>
 
